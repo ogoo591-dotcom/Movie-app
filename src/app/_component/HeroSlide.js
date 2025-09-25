@@ -4,10 +4,13 @@ import { StarIcon } from "../_icons/StarIcon";
 import { WatchIcon } from "../_icons/WatchIcon";
 
 export const HeroSlide = (props) => {
-  const { src, name, text } = props;
+  const { name, text, imgUrl } = props;
   return (
     <div className="relative w-[1440px] h-[600px]">
-      <img className="w-[1440px] h-[600px]" src={src} />
+      <img
+        className="w-full h-[600px] object-fit"
+        src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
+      />
       <div className=" h-full  absolute top-0 left-0 z-10 flex flex-col  gap-4 justify-center ml-40 ">
         <div>
           <p className="text-base font-medium text-white">Now Playing:</p>

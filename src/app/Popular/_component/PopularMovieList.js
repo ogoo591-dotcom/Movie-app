@@ -1,9 +1,10 @@
-`use client`;
+"use client";
 import { useEffect, useState } from "react";
-import { HeroSlide } from "../_component/HeroSlide";
+import { MovieCard } from "../../_component/MovieCard";
+import { PopularTitle } from "./Title";
 
 const apiLink =
-  "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -12,20 +13,20 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const HeroSection = () => {
-  const [nomPlayingMovieData, setNowPlayingMovieData] = useState([]);
+export const PopularMovieList = () => {
+  const [popularMovieData, setPopularMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
     setLoading(true);
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
-    setNowPlayingMovieData(jsonData.results);
+    setPopularMovieData(jsonData.results);
     setLoading(false);
   };
 
   console.log("loading", loading);
-  console.log("nom-playing", nomPlayingMovieData);
+  console.log("popular", popularMovieData);
 
   useEffect(() => {
     getData();
@@ -35,18 +36,20 @@ export const HeroSection = () => {
   }
 
   return (
-    <div className="overflow-x-scroll w-full h-[600px] relative">
-      <div className="flex w-fit h-full">
-        {nomPlayingMovieData.slice(options, 3).map((movie, index) => {
-          return (
-            <HeroSlide
-              key={index}
-              name={movie.title}
-              imgUrl={movie.backdrop_path}
-              text={movie.overview}
-            />
-          );
-        })}
+    <div className="w-ful bg-white relative p-8 ">
+      <div>
+        <PopularTitle name={`Popular `} />
+        <div className="flex flex-wrap gap-8 justify-center ">
+          {popularMovieData.slice(0, 10).map((movie, index) => {
+            return (
+              <MovieCard
+                key={index}
+                name={movie.title}
+                imgUrl={movie.backdrop_path}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
