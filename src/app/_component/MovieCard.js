@@ -6,7 +6,7 @@ export const MovieCard = (props) => {
     <div className="w-[230px] h-[439px] flex flex-row">
       <div className="w-full h-full aspect-[2/3] overflow-hidden ">
         <img
-          className="w-full h-[320px] object-fit  "
+          className="w-full h-[320px] object-cover  "
           src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
           alt="Santa"
         />

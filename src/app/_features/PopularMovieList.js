@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { MovieCard } from "@/app/_component/MovieCard";
-import { UpcomingTitle } from "./Title";
+import { MovieCard } from "../_component/MovieCard";
+import { Title } from "./Title";
+import { Loading } from "../_component/Loading";
 
 const apiLink =
-  "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -13,34 +14,33 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const UpcomingMovieList = () => {
-  const [upcomingMovieData, setUpcomingMovieData] = useState([]);
+export const PopularMovieList = () => {
+  const [popularMovieData, setPopularMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getData = async () => {
     setLoading(true);
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
-    setUpcomingMovieData(jsonData.results);
-    setLoading(false);
+    setPopularMovieData(jsonData.results);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   };
-
-  console.log("loading", loading);
-  console.log("upcoming", upcomingMovieData);
 
   useEffect(() => {
     getData();
   }, []);
   if (loading) {
-    return <div>...loading</div>;
+    return <Loading />;
   }
 
   return (
     <div className="w-ful bg-white relative p-8 ">
       <div>
-        <UpcomingTitle name={`Upcoming `} />
+        <Title name={`Popular `} />
         <div className="flex flex-wrap gap-8 justify-center ">
-          {upcomingMovieData.slice(0, 10).map((movie, index) => {
+          {popularMovieData.slice(0, 10).map((movie, index) => {
             return (
               <MovieCard
                 key={index}

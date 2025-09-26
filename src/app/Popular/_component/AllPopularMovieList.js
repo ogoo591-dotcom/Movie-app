@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { MovieCard } from "../../_component/MovieCard";
+import { MovieCard } from "@/app/_component/MovieCard";
 import { PopularTitle } from "./Title";
 
 const apiLink =
@@ -13,7 +13,7 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const PopularMovieList = () => {
+export const AllPopularMovieList = () => {
   const [popularMovieData, setPopularMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,9 +24,6 @@ export const PopularMovieList = () => {
     setPopularMovieData(jsonData.results);
     setLoading(false);
   };
-
-  console.log("loading", loading);
-  console.log("popular", popularMovieData);
 
   useEffect(() => {
     getData();
@@ -40,7 +37,7 @@ export const PopularMovieList = () => {
       <div>
         <PopularTitle name={`Popular `} />
         <div className="flex flex-wrap gap-8 justify-center ">
-          {popularMovieData.slice(0, 10).map((movie, index) => {
+          {popularMovieData.map((movie, index) => {
             return (
               <MovieCard
                 key={index}

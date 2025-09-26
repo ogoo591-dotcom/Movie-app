@@ -1,5 +1,3 @@
-import { Button } from "../_features/Button";
-import { Dots } from "../_features/Dots";
 import { StarIcon } from "../_icons/StarIcon";
 import { WatchIcon } from "../_icons/WatchIcon";
 
@@ -8,10 +6,10 @@ export const HeroSlide = (props) => {
   return (
     <div className="relative w-[1440px] h-[600px]">
       <img
-        className="w-full h-[600px] object-fit"
+        className="w-full h-full object-cover"
         src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
       />
-      <div className=" h-full  absolute top-0 left-0 z-10 flex flex-col  gap-4 justify-center ml-40 ">
+      <div className=" h-[600px]  absolute top-0 left-0 z-10 flex flex-col  gap-4 justify-center ml-40 ">
         <div>
           <p className="text-base font-medium text-white">Now Playing:</p>
           <h1 className="text-4xl font-medium text-white">{name}</h1>
@@ -27,8 +25,11 @@ export const HeroSlide = (props) => {
           Watch Trailer
         </button>
       </div>
-      <Button />
-      <Dots />
+      <div className="w-full h-full  absolute top-0 left-0 z-10 flex flex-row justify-center items-end gap-4 p-5 ">
+        <button className=" h-3 w-3 border-0 rounded-full  bg-white "></button>
+        <button className=" h-3 w-3  border-0 rounded-full  bg-white "></button>
+        <button className="h-3 w-3  border-0 rounded-full  bg-white"></button>
+      </div>
     </div>
   );
 };

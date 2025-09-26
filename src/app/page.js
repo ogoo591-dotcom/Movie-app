@@ -4,10 +4,9 @@ import "./index.css";
 import { Header } from "./_features/Header";
 import { Footer } from "./_features/Footer";
 import { HeroSection } from "./_features/HeroSection";
-import { TopRateMovieList } from "./Top-Rated/_component/TopRateMovieList";
-import { GenresList } from "./_features/GenresList";
-import { UpcomingMovieList } from "./Upcoming/_component/UpcomingMovieList";
-import { PopularMovieList } from "./Popular/_component/PopularMovieList";
+import { UpcomingMovieList } from "./_features/UpcomingMovieList";
+import { PopularMovieList } from "./_features/PopularMovieList";
+import { TopRateMovieList } from "./_features/TopRateMovieList";
 
 export default function Home() {
   return (
@@ -18,7 +17,6 @@ export default function Home() {
       <PopularMovieList />
       <TopRateMovieList />
       <Footer />
-      <GenresList />
     </div>
   );
 }
