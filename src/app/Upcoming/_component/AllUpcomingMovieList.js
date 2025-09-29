@@ -24,6 +24,7 @@ export const AllUpcomingMovieList = () => {
     setUpcomingMovieData(jsonData.results);
     setLoading(false);
   };
+  console.log(upcomingMovieData);
 
   useEffect(() => {
     getData();
@@ -35,7 +36,7 @@ export const AllUpcomingMovieList = () => {
   return (
     <div className="w-ful bg-white relative p-8 ">
       <div>
-        <UpcomingTitle name={`Upcoming `} />
+        <UpcomingTitle name={`Upcoming`} />
         <div className="flex flex-wrap gap-8 justify-center ">
           {upcomingMovieData.map((movie, index) => {
             return (
@@ -43,6 +44,8 @@ export const AllUpcomingMovieList = () => {
                 key={index}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
+                rating={movie.rating}
+                movieId={movie.id}
               />
             );
           })}

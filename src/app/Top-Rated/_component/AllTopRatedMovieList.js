@@ -42,6 +42,8 @@ export const AllTopRateMovieList = () => {
                 key={index}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
+                rating={movie.rating}
+                movieId={movie.id}
               />
             );
           })}

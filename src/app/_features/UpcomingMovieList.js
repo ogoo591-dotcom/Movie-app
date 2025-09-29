@@ -4,8 +4,6 @@ import { MovieCard } from "../_component/MovieCard";
 import { Title } from "./Title";
 import { Loading } from "../_component/Loading";
 
-const apiLink =
-  "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -17,20 +15,22 @@ const options = {
 export const UpcomingMovieList = () => {
   const [upcomingMovieData, setUpcomingMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const apiLink = `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=${page}`;
 
   const getData = async () => {
     setLoading(true);
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
     setUpcomingMovieData(jsonData.results);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setLoading(false);
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
+
   if (loading) {
     return <Loading />;
   }
@@ -40,12 +40,14 @@ export const UpcomingMovieList = () => {
       <div>
         <Title name={`Upcoming`} />
         <div className="flex flex-wrap gap-8 justify-center ">
-          {upcomingMovieData.slice(0, 10).map((movie, index) => {
+          {upcomingMovieData.slice(0, 10).map((movie) => {
             return (
               <MovieCard
-                key={index}
+                key={movie.id}
+                movieId={movie.id}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
+                rating={movie.vote_average?.toFixed(1)}
               />
             );
           })}

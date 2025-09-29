@@ -24,9 +24,7 @@ export const HeroSection = () => {
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
     setNowPlayingMovieData((jsonData.results || []).slice(0, 10));
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -49,7 +47,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <div className=" w-full h-[600px] relative">
+    <div className=" w-full h-[600px] relative overflow-x-scroll scroll-smooth no-scrollbar">
       {" "}
       <div className="w-full h-full  absolute top-0 left-0 z-10 flex flex-row justify-start items-center p-10">
         <button
@@ -59,16 +57,14 @@ export const HeroSection = () => {
           <ZuunIcon />
         </button>
       </div>
-      <div
-        ref={scrollRef}
-        className="flex w-fit h-full overflow-x-scroll scroll-smooth no-scrollbar"
-      >
+      <div ref={scrollRef} className="flex w-fit h-full ">
         {nomPlayingMovieData.slice(0, 10).map((movie, index) => (
           <HeroSlide
             key={index}
             name={movie.title}
             imgUrl={movie.backdrop_path}
             text={movie.overview}
+            // trailerKey={pickTrailerKey(movie)}
           />
         ))}
       </div>

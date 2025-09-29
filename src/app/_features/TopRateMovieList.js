@@ -23,9 +23,7 @@ export const TopRateMovieList = () => {
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
     setTopRatedMovieData(jsonData.results);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -46,6 +44,7 @@ export const TopRateMovieList = () => {
                 key={index}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
+                rating={movie.rating}
               />
             );
           })}

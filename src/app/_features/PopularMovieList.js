@@ -23,9 +23,7 @@ export const PopularMovieList = () => {
     const data = await fetch(apiLink, options);
     const jsonData = await data.json();
     setPopularMovieData(jsonData.results);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -46,6 +44,7 @@ export const PopularMovieList = () => {
                 key={index}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
+                rating={movie.vote_average}
               />
             );
           })}
