@@ -2,12 +2,30 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "../_icons/SearchIcon";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import GenresList from "./GenresList";
+
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
+  },
+};
+
+const buildSearchUrl = (q, page = 1) =>
+  `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+    q
+  )}&include_adult=false&language=en-US&page=${page}`;
 
 export const Header = () => {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const currentTheme = theme === "system" ? systemTheme : theme;
   useEffect(() => setMounted(true), []);
+
   return (
     <div className="w-full h-[59px] justify-between px-[16px] bg-white ">
       <div
@@ -16,11 +34,11 @@ export const Header = () => {
       >
         <img
           className="h-[20px]  w-[92px] gap-8  "
-          src="Light-mode.png"
+          src="/Light-mode.png"
           alt="logo"
         />
         <div className="flex flex-row gap-12 w-[488px] h-[36px] justify-center items-center ">
-          <button className=" h-[36px]  w-[97px] border-2 border-gray-200  border-gr flex  rounded-lg justify-center items-center gap-2  "></button>
+          <GenresList />
           <div className="h-[36px]  w-[379px] gap-4 border-2 border-gray-200 flex rounded-lg items-center px-3">
             <SearchIcon />
             <input
@@ -35,7 +53,7 @@ export const Header = () => {
               <button>
                 <img
                   className="h-[36px] cursor-pointer hover:text-amber-500 w-[36px] gap-12"
-                  src="Icon-Button.png"
+                  src="/Icon-Button.png"
                   onClick={() => setTheme("light")}
                 />
               </button>
@@ -43,7 +61,7 @@ export const Header = () => {
               <button>
                 <img
                   className="h-[36px] cursor-pointer hover:text-amber-500 w-[36px] gap-12"
-                  src="Icon-Button.png"
+                  src="/Icon-Button.png"
                   onClick={() => setTheme("dark")}
                 />
               </button>

@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { MovieCard } from "@/app/_component/MovieCard";
-import { PopularTitle } from "./Title";
+import { Loading } from "@/app/_component/Loading";
+import { useSearchParams } from "next/navigation";
 import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
+import { DetailsTitle } from "@/app/movie-details/[id]/_component/DetailsTitle";
 
-const apiLink =
-  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -15,18 +15,24 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const AllPopularMovieList = () => {
-  const [popularMovieData, setPopularMovieData] = useState([]);
+export const AllMoreLike = ({ isDetail }) => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  console.log(id, "hahah");
+  const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const totalPages = 10;
+
+  const apiLink = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`;
+
+  console.log(moreLikeData);
 
   const getData = async (pageNum) => {
     setLoading(true);
     const data = await fetch(apiLink + pageNum, options);
     const jsonData = await data.json();
-
-    setPopularMovieData(jsonData.results || []);
+    setMoreLikeData(jsonData.results || []);
     setLoading(false);
   };
 
@@ -72,22 +78,22 @@ export const AllPopularMovieList = () => {
   };
 
   if (loading) {
-    return <div>...loading</div>;
+    return <Loading />;
   }
 
   return (
-    <div className="w-ful bg-white relative p-8 ">
+    <div className="w-full bg-white relative p-8 ">
       <div>
-        <PopularTitle name={`Popular `} />
+        <DetailsTitle />
         <div className="flex flex-wrap gap-8 justify-center ">
-          {popularMovieData.map((movie, index) => {
+          {moreLikeData.map((movie) => {
             return (
               <MovieCard
-                key={index}
+                key={movie.id}
+                movieId={movie.id}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
                 rating={movie.vote_average}
-                movieId={movie.id}
               />
             );
           })}

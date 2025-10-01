@@ -4,8 +4,6 @@ import { MovieCard } from "../_component/MovieCard";
 import { Title } from "./Title";
 import { Loading } from "../_component/Loading";
 
-const apiLink =
-  "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
 const options = {
   method: "GET",
   headers: {
@@ -17,6 +15,9 @@ const options = {
 export const TopRateMovieList = () => {
   const [topRatedMovieData, setTopRatedMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const apiLink = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${page}`;
 
   const getData = async () => {
     setLoading(true);
@@ -28,7 +29,8 @@ export const TopRateMovieList = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [page]);
+
   if (loading) {
     return <Loading />;
   }
@@ -44,7 +46,8 @@ export const TopRateMovieList = () => {
                 key={index}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
-                rating={movie.rating}
+                rating={movie.vote_average}
+                movieId={movie.id}
               />
             );
           })}

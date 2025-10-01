@@ -47,7 +47,7 @@ export const UpcomingMovieList = () => {
                 movieId={movie.id}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
-                rating={movie.vote_average?.toFixed(1)}
+                rating={movie.vote_average}
               />
             );
           })}

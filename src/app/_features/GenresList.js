@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const GENRES = [
   "Action",
@@ -33,7 +33,7 @@ const GENRES = [
 
 export default function GenresList({ onSelect }) {
   const [open, setOpen] = useState(false);
-  const boxRef = null;
+  const boxRef = useRef(null);
 
   useEffect(() => {
     if (!open) return;
@@ -55,7 +55,7 @@ export default function GenresList({ onSelect }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex items-center gap-2 rounded-2xl border px-4 py-2 bg-white shadow-sm hover:bg-gray-50"
+        className=" h-[36px]  w-[97px] border-2 border-gray-200  border-gr flex  rounded-lg justify-center items-center gap-2  "
       >
         <svg
           width="14"
@@ -75,7 +75,7 @@ export default function GenresList({ onSelect }) {
       </button>
 
       <div
-        className={`absolute left-0 z-50 mt-3 w-[640px] max-w-[92vw] rounded-2xl border bg-white shadow-xl transition
+        className={`absolute left-0 z-50 mt-3 w-[640px] max-w-[92vw]  border-gray-200  border-gr rounded-2xl border bg-white shadow-xl transition
         ${
           open
             ? "opacity-100 scale-100"
@@ -94,7 +94,7 @@ export default function GenresList({ onSelect }) {
                   onSelect?.(g);
                   setOpen(false);
                 }}
-                className="group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm hover:bg-gray-50"
+                className="group inline-flex items-center gap-2 rounded-full  border-gray-200  border-gr border px-3 py-1.5 text-sm font-bold hover:bg-gray-300"
               >
                 {g}
                 <span className="opacity-60 group-hover:opacity-100">›</span>
