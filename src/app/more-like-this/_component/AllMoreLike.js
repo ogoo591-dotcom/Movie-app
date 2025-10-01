@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "@/app/_component/MovieCard";
 import { Loading } from "@/app/_component/Loading";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
 import { DetailsTitle } from "@/app/movie-details/[id]/_component/DetailsTitle";
@@ -16,8 +16,12 @@ const options = {
   },
 };
 export const AllMoreLike = ({ isDetail }) => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get("id");
+  const param = useParams();
+
+  const { id } = param;
+
   console.log(id, "hahah");
   const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -84,15 +88,16 @@ export const AllMoreLike = ({ isDetail }) => {
   return (
     <div className="w-full bg-white relative p-8 ">
       <div>
-        <DetailsTitle />
+        <DetailsTitle movieId={id} />
         <div className="flex flex-wrap gap-8 justify-center ">
           {moreLikeData.map((movie) => {
             return (
               <MovieCard
                 key={movie.id}
                 movieId={movie.id}
+                id={movie.id}
                 name={movie.title}
-                imgUrl={movie.backdrop_path}
+                imgUrl={movie.poster_path}
                 rating={movie.vote_average}
               />
             );

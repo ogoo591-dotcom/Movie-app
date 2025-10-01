@@ -8,8 +8,10 @@ export const HeroSlide = (props) => {
       <img
         className="w-full h-full object-cover"
         src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
+        alt={name}
       />
-      <div className=" h-[600px]  absolute top-0 left-0 z-10 flex flex-col  gap-4 justify-center ml-40 ">
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+      <div className="absolute inset-0 z-20 flex flex-col gap-4 justify-center ml-40">
         <div>
           <p className="text-base font-medium text-white">Now Playing:</p>
           <h1 className="text-4xl font-medium text-white">{name}</h1>
@@ -21,17 +23,17 @@ export const HeroSlide = (props) => {
         </div>
         <p className="text-xs font-medium text-white w-[302px]">{text}</p>
         <button
-          className=" h-[40px]  w-[145px] border-0 border-gray-200  border-gr flex  rounded-lg justify-center items-center gap-2 bg-white text-sm "
           onClick={onWatchTrailer}
+          className=" h-[40px]  w-[145px] border-0 border-gray-200  border-gr flex  rounded-lg justify-center items-center gap-2 bg-white text-sm "
         >
           <WatchIcon />
           Watch Trailer
         </button>
       </div>
-      <div className="w-full h-full  absolute top-0 left-0 z-10 flex flex-row justify-center items-end gap-4 p-5 ">
-        <button className=" h-3 w-3 border-0 rounded-full  bg-white "></button>
-        <button className=" h-3 w-3  border-0 rounded-full  bg-white "></button>
-        <button className="h-3 w-3  border-0 rounded-full  bg-white"></button>
+      <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center items-end gap-4 p-5 pointer-events-none">
+        <button className="h-3 w-3 rounded-full bg-white pointer-events-auto" />
+        <button className="h-3 w-3 rounded-full bg-white/80 pointer-events-auto" />
+        <button className="h-3 w-3 rounded-full bg-white/80 pointer-events-auto" />
       </div>
     </div>
   );

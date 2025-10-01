@@ -54,8 +54,6 @@ export const HeroSection = () => {
       );
       const json = await res.json();
       const list = Array.isArray(json.results) ? json.results : [];
-
-      // official Trailer → Trailer → Teaser → YouTube аль нь ч бай
       const pick =
         list.find(
           (v) =>
@@ -71,7 +69,6 @@ export const HeroSection = () => {
         setTrailerKey(pick.key);
         setShowTrailer(true);
       } else {
-        // fallback: YouTube хайлт руу аваачих
         window.open(
           `https://www.youtube.com/results?search_query=${encodeURIComponent(
             `${movieTitle} trailer`

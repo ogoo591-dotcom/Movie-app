@@ -47,6 +47,7 @@ export const MoreLikeThis = () => {
               <MovieCard
                 key={movie.id}
                 movieId={movie.id}
+                id={movie.id}
                 name={movie.title}
                 imgUrl={movie.backdrop_path}
                 rating={movie.vote_average?.toFixed(1)}
