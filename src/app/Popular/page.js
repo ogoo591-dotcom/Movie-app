@@ -1,14 +1,19 @@
 "use client";
 
+import { AllMovieList } from "../_features/AllMovieList";
 import { Footer } from "../_features/Footer";
 import { Header } from "../_features/Header";
-import { AllPopularMovieList } from "./_component/AllPopularMovieList";
 
 export default function Home() {
   return (
     <div className="w-[1440px] m-auto">
       <Header />
-      <AllPopularMovieList />
+      <AllMovieList
+        title="Popular"
+        url="https://api.themoviedb.org/3/movie/popular?language=en-US"
+        isShow={true}
+        seeMoreHref="/popular"
+      />
       <Footer />
     </div>
   );

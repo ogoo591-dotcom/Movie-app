@@ -1,4 +1,5 @@
 import { EmailIcon } from "../_icons/EmailIcon";
+import { MovieZIcon } from "../_icons/MovieZIcon";
 import { PhoneIcon } from "../_icons/PhoneIcon";
 
 export const Footer = () => {
@@ -6,7 +7,7 @@ export const Footer = () => {
     <div className="w-full h-[280px] bg-blue-600 flex justify-center items-center">
       <div className="w-[1280px] h-[200px] flex flex-row gap-90 text-white font-normal">
         <div>
-          <img src="/Logo.png" />
+          <MovieZIcon />
           <p className="mt-3">© 2024 Movie Z. All Rights Reserved.</p>
         </div>
         <div className="flex flex-row gap-40">

@@ -2,7 +2,7 @@ import { StarIcon } from "../_icons/StarIcon";
 import { WatchIcon } from "../_icons/WatchIcon";
 
 export const HeroSlide = (props) => {
-  const { name, text, imgUrl, onWatchTrailer } = props;
+  const { name, text, rating, imgUrl, onWatchTrailer } = props;
   return (
     <div className="relative w-[1440px] h-[600px]">
       <img
@@ -17,7 +17,7 @@ export const HeroSlide = (props) => {
           <h1 className="text-4xl font-medium text-white">{name}</h1>
           <div className="flex flex-row gap-2">
             <StarIcon />
-            <span className="text-lg font-medium text-white">6.9</span>
+            <span className="text-lg font-medium text-white">{rating}</span>
             <span className="text-lg font-medium text-gray-400">/10</span>
           </div>
         </div>

@@ -1,13 +1,18 @@
 "use client";
+import { AllMovieList } from "../_features/AllMovieList";
 import { Footer } from "../_features/Footer";
 import { Header } from "../_features/Header";
-import { AllUpcomingMovieList } from "./_component/AllUpcomingMovieList";
 
 export default function Home() {
   return (
     <div className="w-[1440px] m-auto">
       <Header />
-      <AllUpcomingMovieList />
+      <AllMovieList
+        title="Upcoming"
+        url="https://api.themoviedb.org/3/movie/upcoming?language=en-US"
+        isShow={true}
+        seeMoreHref="/upcoming"
+      />
       <Footer />
     </div>
   );

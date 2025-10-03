@@ -97,6 +97,7 @@ export const HeroSection = () => {
               imgUrl={movie.backdrop_path}
               text={movie.overview}
               movieId={movie.id}
+              rating={movie.vote_average.toFixed(1)}
               onWatchTrailer={() => fetchTrailer(movie.id, movie.title)}
             />
           </div>

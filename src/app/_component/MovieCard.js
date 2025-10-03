@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export const MovieCard = (props) => {
   const { name, imgUrl, rating, movieId } = props;
-  console.log(movieId, "gg");
   const router = useRouter();
 
   const handleMovieClick = () => {

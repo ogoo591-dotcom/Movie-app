@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "@/app/_component/MovieCard";
 import { Loading } from "@/app/_component/Loading";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
-import { DetailsTitle } from "@/app/movie-details/[id]/_component/DetailsTitle";
+import Link from "next/link";
+import { SeeMore } from "@/app/_icons/Seemore";
 
 const options = {
   method: "GET",
@@ -15,14 +16,9 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const AllMoreLike = ({ isDetail }) => {
-  // const searchParams = useSearchParams();
-  // const id = searchParams.get("id");
-  const param = useParams();
-
-  const { id } = param;
-
-  console.log(id, "hahah");
+export const AllMoreLike = ({ isMoreLike }) => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -88,7 +84,18 @@ export const AllMoreLike = ({ isDetail }) => {
   return (
     <div className="w-full bg-white relative p-8 ">
       <div>
-        <DetailsTitle movieId={id} />
+        <div className="flex justify-between ml-13 mr-13 py-2 items-center">
+          <h3 className="text-xl font-semibold"> More like this </h3>
+          {!isMoreLike && (
+            <Link
+              href={`/more-like-this?id=${id}`}
+              className="mt-6 flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black px-4 py-2 rounded"
+            >
+              See More
+              <SeeMore />
+            </Link>
+          )}
+        </div>
         <div className="flex flex-wrap gap-8 justify-center ">
           {moreLikeData.map((movie) => {
             return (
@@ -98,13 +105,12 @@ export const AllMoreLike = ({ isDetail }) => {
                 id={movie.id}
                 name={movie.title}
                 imgUrl={movie.poster_path}
-                rating={movie.vote_average}
+                rating={movie.vote_average.toFixed(1)}
               />
             );
           })}
         </div>
       </div>
-      <div className="w-full bg-white relative flex  p-4"></div>
       <div className="flex flex-row justify-end items-center gap-2">
         <button
           onClick={handlePrevious}
@@ -112,7 +118,7 @@ export const AllMoreLike = ({ isDetail }) => {
           className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
         >
           <ZuunIcon />
-          <p>Previous</p>
+          Previous
         </button>
 
         {getPageNumbers().map((p, i) =>
@@ -139,7 +145,7 @@ export const AllMoreLike = ({ isDetail }) => {
           disabled={page === totalPages}
           className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
         >
-          <p>Next</p>
+          Next
           <IconButton />
         </button>
       </div>

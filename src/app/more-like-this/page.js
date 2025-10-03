@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="w-[1440px] m-auto">
       <Header />
-      <AllMoreLike />
+      <AllMoreLike isMoreLike={true} />
       <Footer />
     </div>
   );

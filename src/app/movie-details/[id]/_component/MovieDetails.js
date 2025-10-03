@@ -1,5 +1,7 @@
 "use client";
+import { Loading } from "@/app/_component/Loading";
 import { StarIcon } from "@/app/_icons/StarIcon";
+import { WatchIcon } from "@/app/_icons/WatchIcon";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -16,7 +18,8 @@ export const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(movie);
+  const [showTrailer, setShowTrailer] = useState(false);
+  const [trailerKey, setTrailerKey] = useState(null);
 
   useEffect(() => {
     if (!id) return;
@@ -54,6 +57,49 @@ export const MovieDetails = () => {
     .sort((a, b) => a.order - b.order)
     .slice(0, 3)
     .map((c) => c.name);
+
+  const fetchTrailer = async (movieId, movieTitle) => {
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+        options
+      );
+      const json = await res.json();
+      const list = Array.isArray(json.results) ? json.results : [];
+      const pick =
+        list.find(
+          (v) =>
+            v.site === "YouTube" &&
+            v.type === "Trailer" &&
+            /official/i.test(v.name)
+        ) ||
+        list.find((v) => v.site === "YouTube" && v.type === "Trailer") ||
+        list.find((v) => v.site === "YouTube" && v.type === "Teaser") ||
+        list.find((v) => v.site === "YouTube");
+
+      if (pick?.key) {
+        setTrailerKey(pick.key);
+        setShowTrailer(true);
+      } else {
+        window.open(
+          `https://www.youtube.com/results?search_query=${encodeURIComponent(
+            `${movieTitle} trailer`
+          )}`,
+          "_blank"
+        );
+      }
+    } catch (e) {
+      console.error("Trailer fetch failed:", e);
+    }
+    console.log(pick);
+  };
+
+  const handleTrailerButton = () => fetchTrailer(movie.id, movie.title);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="flex flex-col  w-[1440px] h-auto items-center bg-white py-10 px-45 gap-8">
       <div className="flex flex-col  gap-6">
@@ -84,11 +130,59 @@ export const MovieDetails = () => {
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title}
           />
-          <img
-            className="w-[780px]  h-[428px]"
-            src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-            alt={movie.title}
-          />
+          <div className="relative ">
+            <img
+              className="w-[780px]  h-[428px]"
+              src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+              alt={movie.title}
+            />{" "}
+            <div className=" absolute inset-0 z-20 ml-5 mt-90 flex gap-3">
+              <button
+                onClick={handleTrailerButton}
+                className=" h-[45px]  w-[45px] border-0 border-gray-200  border-gr flex  rounded-full justify-center items-center gap-2 bg-white text-sm "
+              >
+                <WatchIcon />
+              </button>
+              <p className="text-white font-medium text-xl flex justify-center mt-2">
+                Play trailer{" "}
+              </p>
+              <span className="text-white font-medium text-xl flex justify-center mt-2">
+                2:35
+              </span>
+            </div>
+            {showTrailer && trailerKey && (
+              <div
+                className="fixed inset-0 z-[120] bg-black/75 flex items-center justify-center p-4"
+                onClick={() => {
+                  setShowTrailer(false);
+                  setTrailerKey("");
+                }}
+              >
+                <div
+                  className="relative w-full max-w-[1100px] aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={() => {
+                      setShowTrailer(false);
+                      setTrailerKey("");
+                    }}
+                    className="absolute left-3 top-3 z-10 w-9 h-9 rounded-full bg-black/70 text-white text-xl grid place-items-center"
+                    aria-label="Close"
+                  >
+                    ×
+                  </button>
+                  <iframe
+                    title="Trailer"
+                    src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-5">
           <div className="flex gap-2 flex-wrap">
