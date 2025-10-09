@@ -1,9 +1,9 @@
 "use client";
-import { Loading } from "@/app/_component/Loading";
 import { StarIcon } from "@/app/_icons/StarIcon";
 import { WatchIcon } from "@/app/_icons/WatchIcon";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { DetailsLoading } from "./DetailsLoading";
 
 const options = {
   method: "GET",
@@ -91,17 +91,14 @@ export const MovieDetails = () => {
     } catch (e) {
       console.error("Trailer fetch failed:", e);
     }
-    console.log(pick);
   };
 
-  const handleTrailerButton = () => fetchTrailer(movie.id, movie.title);
-
   if (loading) {
-    return <Loading />;
+    return <DetailsLoading />;
   }
 
   return (
-    <div className="flex flex-col  w-[1440px] h-auto items-center bg-white py-10 px-45 gap-8">
+    <div className="flex flex-col  w-[1440px] h-auto items-center bg-white dark:bg-black text-black dark:text-white py-10 px-45 gap-8">
       <div className="flex flex-col  gap-6">
         <div className="flex justify-between items-center ">
           <div className="flex flex-col gap-1">
@@ -114,8 +111,8 @@ export const MovieDetails = () => {
             <h3>Rating</h3>
             <div className="flex gap-1 items-center">
               <StarIcon />
-              <span className="text-lg font-medium text-black">
-                {movie.vote_average}
+              <span className="text-lg font-medium text-black dark:text-white">
+                {movie.vote_average.toFixed(1)}
               </span>
               <span className="text-lg font-medium text-gray-400">/10</span>
             </div>
@@ -138,8 +135,8 @@ export const MovieDetails = () => {
             />{" "}
             <div className=" absolute inset-0 z-20 ml-5 mt-90 flex gap-3">
               <button
-                onClick={handleTrailerButton}
-                className=" h-[45px]  w-[45px] border-0 border-gray-200  border-gr flex  rounded-full justify-center items-center gap-2 bg-white text-sm "
+                onClick={() => fetchTrailer(movie.id, movie.title)}
+                className=" h-[45px]  w-[45px] border-0 border-gray-200  border-gr flex cursor-pointer rounded-full justify-center items-center gap-2 bg-white text-sm "
               >
                 <WatchIcon />
               </button>
@@ -152,7 +149,7 @@ export const MovieDetails = () => {
             </div>
             {showTrailer && trailerKey && (
               <div
-                className="fixed inset-0 z-[120] bg-black/75 flex items-center justify-center p-4"
+                className="fixed inset-0 z-[120] bg-blac  k/75 flex items-center justify-center p-4"
                 onClick={() => {
                   setShowTrailer(false);
                   setTrailerKey("");

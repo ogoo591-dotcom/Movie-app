@@ -65,12 +65,12 @@ export default function GenreList() {
     setOpen(false);
   };
   return (
-    <div ref={boxRef} className="relative">
+    <div ref={boxRef} className="relative ">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="h-[36px] w-[97px] border-2 border-gray-200 rounded-lg flex items-center justify-center gap-2"
+        className="h-[36px] w-[97px] border-2 border-gray-200  bg-white dark:bg-black text-black dark:text-white rounded-lg flex items-center justify-center gap-2 cursor-pointer"
       >
         <svg
           width="14"
@@ -86,11 +86,11 @@ export default function GenreList() {
             strokeLinecap="round"
           />
         </svg>
-        <span className="text-sm">Genre</span>
+        <span className="text-sm cursor-pointer">Genre</span>
       </button>
 
       <div
-        className={`absolute left-0 z-50 mt-3 w-[577px] rounded-lg border border-gray-200 bg-white shadow-xl transition
+        className={`absolute left-0 z-50 mt-3 w-[550px] rounded-lg border border-gray-200 bg-white dark:bg-black text-black dark:text-white shadow-xl transition
         ${
           open
             ? "opacity-100 scale-100"
@@ -108,7 +108,7 @@ export default function GenreList() {
                 <button
                   key={g.id}
                   onClick={() => handleClick(g)}
-                  className="group inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1.5 text-sm font-bold hover:bg-gray-100"
+                  className="group inline-flex items-center gap-2 rounded-full border border-gray-200 px-3 py-1  text-xs hover:bg-gray-100 cursor-pointer"
                 >
                   {g.name === "Science Fiction" ? "Sci-Fi" : g.name}
                   <span className="opacity-60 group-hover:opacity-100">›</span>

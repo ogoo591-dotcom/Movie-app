@@ -27,7 +27,7 @@ export const HeroSection = () => {
       setLoading(true);
       const data = await fetch(apiLink, options);
       const jsonData = await data.json();
-      setNowPlayingMovieData((jsonData.results || []).slice(0, 5));
+      setNowPlayingMovieData((jsonData.results || []).slice(0, 10));
       setLoading(false);
     };
     getData();
@@ -82,7 +82,7 @@ export const HeroSection = () => {
   };
 
   if (loading) {
-    return <Loading />;
+    return <div className=" w-[1440px] h-[600px] bg-gray-100"></div>;
   }
   return (
     <div className="relative w-full h-[600px] overflow-hidden">
@@ -107,7 +107,7 @@ export const HeroSection = () => {
         <div className="absolute inset-y-0 left-0 z-10 flex items-center p-4">
           <button
             onClick={goPrev}
-            className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center"
+            className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center cursor-pointer"
             aria-label="Previous"
           >
             <ZuunIcon />
@@ -118,11 +118,32 @@ export const HeroSection = () => {
         <div className="absolute inset-y-0 right-0 z-10 flex items-center p-4">
           <button
             onClick={goNext}
-            className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center"
+            className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center cursor-pointer"
             aria-label="Next"
           >
             <IconButton />
           </button>
+        </div>
+      )}
+      {total > 1 && (
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+          {Array.from({ length: total }).map((_, i) => {
+            const active = i === currentIndex;
+            return (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                aria-current={active ? "true" : "false"}
+                className={[
+                  "h-2 rounded-full transition-all",
+                  active
+                    ? "w-3 h-3 bg-white/40 shadow"
+                    : "w-3 h-3 bg-white hover:bg-white",
+                ].join(" ")}
+              />
+            );
+          })}
         </div>
       )}
       {showTrailer && trailerKey && (

@@ -24,16 +24,11 @@ export const HeroSlide = (props) => {
         <p className="text-xs font-medium text-white w-[302px]">{text}</p>
         <button
           onClick={onWatchTrailer}
-          className=" h-[40px]  w-[145px] border-0 border-gray-200  border-gr flex  rounded-lg justify-center items-center gap-2 bg-white text-sm "
+          className=" h-[40px]  w-[145px] border-0 border-gray-200  border-gr flex text-black rounded-lg justify-center items-center gap-2 bg-white text-sm cursor-pointer"
         >
           <WatchIcon />
           Watch Trailer
         </button>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center items-end gap-4 p-5 pointer-events-none">
-        <button className="h-3 w-3 rounded-full bg-white pointer-events-auto" />
-        <button className="h-3 w-3 rounded-full bg-white/80 pointer-events-auto" />
-        <button className="h-3 w-3 rounded-full bg-white/80 pointer-events-auto" />
       </div>
     </div>
   );

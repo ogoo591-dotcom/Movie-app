@@ -22,7 +22,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
   const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const totalPages = 10;
+  const totalPages = 15;
 
   const apiLink = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`;
 
@@ -33,6 +33,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
     const data = await fetch(apiLink + pageNum, options);
     const jsonData = await data.json();
     setMoreLikeData(jsonData.results || []);
+    console.log("hahahahahhhhhhhhhh11", setMoreLikeData);
     setLoading(false);
   };
 
@@ -46,7 +47,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
       if (page <= 3) {
-        pages.push(1, 2, 3, 4, 5, "...", totalPages);
+        pages.push(1, 2, 3, "...", totalPages);
       } else if (page >= totalPages - 3) {
         pages.push(
           1,
@@ -63,26 +64,16 @@ export const AllMoreLike = ({ isMoreLike }) => {
     }
     return pages;
   };
-  const handlePrevious = () => {
-    if (page > 1) {
-      setPage((p) => Math.max(p - 1, 1));
-    }
-  };
-  const handleNext = () => {
-    if (page < totalPages) {
-      setPage((p) => Math.min(p + 1, totalPages));
-    }
-  };
-  const handlePageClick = (page) => {
-    setPage(page);
-  };
+  const handlePrevious = () => setPage((p) => Math.max(p - 1, 1));
+  const handleNext = () => setPage((p) => Math.min(p + 1, totalPages));
+  const handlePageClick = (page) => setPage(page);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <div className="w-full bg-white relative p-8 ">
+    <div className="w-full  bg-white dark:bg-black text-black dark:text-white relative p-8 ">
       <div>
         <div className="flex justify-between ml-13 mr-13 py-2 items-center">
           <h3 className="text-xl font-semibold"> More like this </h3>
@@ -115,7 +106,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
         <button
           onClick={handlePrevious}
           disabled={page === 1}
-          className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
+          className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50"
         >
           <ZuunIcon />
           Previous
@@ -130,10 +121,10 @@ export const AllMoreLike = ({ isMoreLike }) => {
             <button
               key={`page-${p}`}
               onClick={() => handlePageClick(p)}
-              className={`w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer ${
+              className={` ${
                 page === p
-                  ? "bg-blue-500 text-white font-bold"
-                  : "hover:bg-gray-100"
+                  ? "w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                  : "w-10 h-10  rounded-xl cursor-pointer hover:bg-gray-200"
               }`}
             >
               {p}
@@ -143,7 +134,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
         <button
           onClick={handleNext}
           disabled={page === totalPages}
-          className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
+          className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50 "
         >
           Next
           <IconButton />

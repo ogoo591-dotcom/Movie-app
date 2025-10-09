@@ -5,6 +5,7 @@ import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
 import { SeeMore } from "@/app/_icons/Seemore";
 import Link from "next/link";
+import { Loading } from "../_component/Loading";
 
 const options = {
   method: "GET",
@@ -22,7 +23,7 @@ export const AllMovieList = (props) => {
   const [AllMovieData, setAllMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const totalPages = 5;
+  const totalPages = 15;
 
   const getData = async (pageNum) => {
     setLoading(true);
@@ -43,15 +44,23 @@ export const AllMovieList = (props) => {
 
   const getPageNumbers = () => {
     const pages = [];
-    if (totalPages <= 3) {
+    if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      if (page <= 1) {
-        pages.push(1, 2, "...", totalPages);
-      } else if (page >= totalPages - 1) {
-        pages.push(1, "...", totalPages - 1, totalPages);
+      if (page <= 3) {
+        pages.push(1, 2, 3, "...", totalPages);
+      } else if (page >= totalPages - 3) {
+        pages.push(
+          1,
+          "...",
+          totalPages - 4,
+          totalPages - 3,
+          totalPages - 2,
+          totalPages - 1,
+          totalPages
+        );
       } else {
-        pages.push(1, page, page + 1, "...", totalPages);
+        pages.push(1, "...", page - 1, page, page + 1, "...", totalPages);
       }
     }
     return pages;
@@ -60,17 +69,17 @@ export const AllMovieList = (props) => {
   const handleNext = () => setPage((p) => Math.min(p + 1, totalPages));
   const handlePageClick = (page) => setPage(page);
 
-  if (loading) return <div>...loading</div>;
+  if (loading) return <Loading />;
 
   return (
-    <div className="w-ful bg-white relative p-8 ">
+    <div className="w-ful  bg-white dark:bg-black text-black dark:text-white relative p-8 ">
       <div>
         <div className="flex justify-between ml-13 mr-13 py-2 items-center">
           <h3 className="text-2xl font-semibold">{title}</h3>
           {!isShow && (
             <Link
               href={seeMoreHref || "/upcoming"}
-              className="mt-6 flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black px-4 py-2 rounded"
+              className="mt-6 flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black dark:text-white px-4 py-2 rounded"
             >
               See More
               <SeeMore />
@@ -96,7 +105,7 @@ export const AllMovieList = (props) => {
           <button
             onClick={handlePrevious}
             disabled={page === 1}
-            className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
+            className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50 cursor-pointer"
           >
             <ZuunIcon />
             <p>Previous</p>
@@ -111,10 +120,10 @@ export const AllMovieList = (props) => {
               <button
                 key={`page-${p}`}
                 onClick={() => handlePageClick(p)}
-                className={`w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer ${
+                className={` ${
                   page === p
-                    ? "bg-blue-500 text-white font-bold"
-                    : "hover:bg-gray-100"
+                    ? "w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                    : "w-10 h-10  rounded-xl cursor-pointer hover:bg-gray-200"
                 }`}
               >
                 {p}
@@ -124,7 +133,7 @@ export const AllMovieList = (props) => {
           <button
             onClick={handleNext}
             disabled={page === totalPages}
-            className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50"
+            className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50 cursor-pointer"
           >
             <p>Next</p>
             <IconButton />
