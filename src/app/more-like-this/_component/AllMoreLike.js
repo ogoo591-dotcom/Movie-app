@@ -73,9 +73,9 @@ export const AllMoreLike = ({ isMoreLike }) => {
   }
 
   return (
-    <div className="w-full  bg-white dark:bg-black text-black dark:text-white relative p-8 ">
+    <div className="w-full bg-white dark:bg-black text-black dark:text-white relative sm:p-8  ">
       <div>
-        <div className="flex justify-between ml-13 mr-13 py-2 items-center">
+        <div className="sm:justify-between flex sm:ml-13 sm:mr-13 ml-5 py-2 max-sm:gap-42 items-center">
           <h3 className="text-xl font-semibold"> More like this </h3>
           {!isMoreLike && (
             <Link
@@ -102,14 +102,14 @@ export const AllMoreLike = ({ isMoreLike }) => {
           })}
         </div>
       </div>
-      <div className="flex flex-row justify-end items-center gap-2">
+      <div className="flex flex-row py-10 justify-end items-center gap-2">
         <button
           onClick={handlePrevious}
           disabled={page === 1}
           className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50"
         >
           <ZuunIcon />
-          Previous
+          <p className="max-sm:hidden">Previous</p>
         </button>
 
         {getPageNumbers().map((p, i) =>
@@ -136,7 +136,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
           disabled={page === totalPages}
           className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50 "
         >
-          Next
+          <p className="max-sm:hidden">Next</p>
           <IconButton />
         </button>
       </div>

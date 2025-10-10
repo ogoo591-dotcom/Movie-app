@@ -15,16 +15,19 @@ export default function Home() {
         title="Upcoming"
         url="https://api.themoviedb.org/3/movie/upcoming?language=en-US"
         isShow={false}
+        seeMoreHref="/upcoming"
       />
       <AllMovieList
         title="Popular"
         url="https://api.themoviedb.org/3/movie/popular?language=en-US"
         isShow={false}
+        seeMoreHref="/popular"
       />
       <AllMovieList
         title="Top-Rated"
         url="https://api.themoviedb.org/3/movie/top_rated?language=en-US"
         isShow={false}
+        seeMoreHref="/top-rated"
       />
       <Footer />
     </div>

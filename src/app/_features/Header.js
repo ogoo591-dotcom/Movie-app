@@ -238,7 +238,7 @@ export const Header = () => {
         </div>
 
         {showMobileBar && (
-          <div className="md:hidden fixed inset-x-0 top-0 z-[70] bg-white border-b border-gray-200">
+          <div className="sm:hidden fixed inset-x-0 top-0 z-[70] bg-white border-b border-gray-200">
             <div className="mx-auto max-w-[1280px] flex items-center gap-3 p-3 relative">
               <button
                 onClick={() => setShowGenre(true)}

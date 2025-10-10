@@ -7,7 +7,7 @@ import { MovieDetails } from "./_component/MovieDetails";
 
 export default function Home() {
   return (
-    <div className="w-[1440px] m-auto">
+    <div className="w-full 2xl:w-[1440px] m-auto">
       <Header />
       <MovieDetails />
       <MoreLikeThis />

@@ -72,21 +72,21 @@ export const AllMovieList = (props) => {
   if (loading) return <Loading />;
 
   return (
-    <div className="w-ful  bg-white dark:bg-black text-black dark:text-white relative p-8 ">
+    <div className="w-full bg-white dark:bg-black text-black dark:text-white relative sm:p-8  ">
       <div>
-        <div className="flex justify-between ml-13 mr-13 py-2 items-center">
-          <h3 className="text-2xl font-semibold">{title}</h3>
+        <div className=" sm:justify-between flex sm:ml-13 sm:mr-13 ml-5 py-2 max-sm:gap-42 items-center">
+          <h3 className="text-2xl mt-6 font-semibold">{title}</h3>
           {!isShow && (
             <Link
-              href={seeMoreHref || "/upcoming"}
-              className="mt-6 flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black dark:text-white px-4 py-2 rounded"
+              href={seeMoreHref}
+              className="flex w-[120px] mt-6 h-[36px] justify-center items-center hover:underline gap-2 text-sm text-black dark:text-white px-4 py-2 rounded"
             >
               See More
               <SeeMore />
             </Link>
           )}
         </div>
-        <div className="flex flex-wrap gap-8 justify-center ">
+        <div className="sm:flex flex  flex-wrap sm:gap-8 gap-6 justify-center ">
           {AllMovieData.slice(0, !isShow ? 10 : 20).map((movie, index) => {
             return (
               <MovieCard
@@ -101,14 +101,14 @@ export const AllMovieList = (props) => {
         </div>
       </div>
       {isShow && (
-        <div className="flex flex-row justify-end items-center gap-2">
+        <div className="sm:flex flex flex-row justify-end items-center gap-2">
           <button
             onClick={handlePrevious}
             disabled={page === 1}
             className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50 cursor-pointer"
           >
             <ZuunIcon />
-            <p>Previous</p>
+            <p className="max-sm:hidden">Previous</p>
           </button>
 
           {getPageNumbers().map((p, i) =>
@@ -135,7 +135,7 @@ export const AllMovieList = (props) => {
             disabled={page === totalPages}
             className="flex justify-center items-center gap-2 px-2 py-1 rounded disabled:opacity-50 cursor-pointer"
           >
-            <p>Next</p>
+            <p className="max-sm:hidden">Next</p>
             <IconButton />
           </button>
         </div>

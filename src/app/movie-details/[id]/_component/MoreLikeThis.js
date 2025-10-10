@@ -41,17 +41,17 @@ export const MoreLikeThis = () => {
   return (
     <div className="w-full  bg-white dark:bg-black text-black dark:text-white relative p-8 ">
       <div>
-        <div className="flex justify-evenly gap-245 items-center">
-          <h3 className="text-xl font-semibold"> More like this </h3>
+        <div className=" sm:justify-between flex sm:ml-13 sm:mr-13 ml-2 py-2 max-sm:gap-30 items-center">
+          <h3 className="sm:text-xl text-lg font-semibold"> More like this </h3>
           <Link
             href={`/more-like-this?id=${id}`}
-            className="mt-6 flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black dark:text-white px-4 py-2 rounded"
+            className=" flex w-[120px] h-[36px] justify-center items-center gap-2 text-sm text-black dark:text-white px-4 py-2 rounded"
           >
             See More
             <SeeMore />
           </Link>
         </div>
-        <div className="flex flex-wrap gap-8 justify-center ">
+        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-1 sm:justify-center">
           {moreLikeData.slice(0, 5).map((movie) => {
             return (
               <MovieCard

@@ -100,8 +100,8 @@ export default function GenrePage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8 bg-white">
-      <aside className="hidden lg:block">
+    <div className="p-6 lg:p-8 grid grid-cols-1 sm:lg:grid-cols-[260px_1fr] gap-8 bg-white">
+      <aside className=" lg:block">
         <h2 className="text-2xl font-semibold mb-1">Search filter</h2>
         <div className="py-5">
           <h3 className="text-xl font-semibold">Genres</h3>
@@ -129,7 +129,7 @@ export default function GenrePage() {
         <h1 className="text-lg font-semibold mb-4">
           {totalResults.toLocaleString()} titles in "{genreName}"
         </h1>
-        <div className="flex flex-wrap gap-6">
+        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center">
           {movies.slice(0, 8).map((m) => (
             <MovieCard
               key={m.id}
@@ -141,14 +141,14 @@ export default function GenrePage() {
           ))}
         </div>
 
-        <div className="flex flex-row justify-end items-center gap-2">
+        <div className="sm:flex flex flex-row justify-end items-center gap-2">
           <button
             onClick={handlePrevious}
             disabled={page === 1}
             className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50"
           >
             <ZuunIcon />
-            Previous
+            <p className="max-sm:hidden">Previous</p>
           </button>
 
           {getPageNumbers().map((p, i) =>
@@ -175,7 +175,7 @@ export default function GenrePage() {
             disabled={page === totalPages}
             className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50 "
           >
-            Next
+            <p className="max-sm:hidden"> Next</p>
             <IconButton />
           </button>
         </div>

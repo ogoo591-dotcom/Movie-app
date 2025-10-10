@@ -6,7 +6,7 @@ import GenrePage from "./_component/GenrePage";
 
 export default function Home() {
   return (
-    <div className="w-[1440px] m-auto">
+    <div className="w-full 2xl:w-[1440px] m-auto">
       <Header />
       <GenrePage />
       <Footer />

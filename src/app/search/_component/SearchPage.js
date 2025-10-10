@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { MovieCard } from "@/app/_component/MovieCard";
+import { ZuunIcon } from "@/app/_icons/ZuunIcon";
+import { IconButton } from "@/app/_icons/IconButton";
 
 const options = {
   method: "GET",
@@ -115,12 +117,12 @@ export default function SearchPage() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className=" py-20 lg:px-8 flex w-full justify-between bg-white pb-80">
+    <div className=" py-20 lg:px-8 flex w-full justify-between  bg-white pb-80">
       <div className="mx-auto max-w-[1280px] w-full border-r border-gray-400">
         <div>
           <h1 className="text-2xl ml-10 font-semibold mb-4">Search results</h1>
         </div>
-        <div>
+        <div className="sm:flex flex-wrap">
           <p className="text-black ml-10 font-medium text-xl mb-6">
             {totalResults} results for “{query}”
           </p>
@@ -129,7 +131,7 @@ export default function SearchPage() {
               No results found.
             </div>
           ) : (
-            <div className="flex flex-wrap gap-6 px-10">
+            <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center">
               {results.slice(0, 8).map((m) => (
                 <MovieCard
                   key={m.id}
@@ -141,13 +143,14 @@ export default function SearchPage() {
               ))}
             </div>
           )}
-          <div className="flex flex-row justify-end items-center gap-2 px-20 mt-6">
+          <div className="sm:flex flex justify-end items-center ml-180 gap-2 px-20 mt-15">
             <button
               onClick={prev}
               disabled={page <= 1}
-              className="px-3 py-1 rounded disabled:opacity-50"
+              className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50 "
             >
-              ‹ Previous
+              <ZuunIcon />
+              <p className="max-sm:hidden">Previous</p>
             </button>
             <span className="w-10 h-10 flex justify-center items-center border rounded-xl">
               {page}
@@ -155,14 +158,15 @@ export default function SearchPage() {
             <button
               onClick={next}
               disabled={page >= totalPages}
-              className="px-3 py-1 rounded disabled:opacity-50"
+              className="flex justify-center items-center cursor-pointer gap-2 px-2 py-1 rounded disabled:opacity-50 "
             >
-              Next ›
+              <p className="max-sm:hidden"> Next</p>
+              <IconButton />
             </button>
           </div>
         </div>
       </div>
-      <aside className="hidden mt-6 lg:block max-w-[300px] pl-5 ">
+      <aside className=" mt-6 lg:block max-w-[300px] pl-5 ">
         <h2 className="text-2xl font-semibold mb-1">Search filter</h2>
         <div className="py-5">
           <p className="text-gray-500">See lists of movies by genre</p>

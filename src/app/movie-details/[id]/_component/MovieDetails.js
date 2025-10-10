@@ -98,11 +98,11 @@ export const MovieDetails = () => {
   }
 
   return (
-    <div className="flex flex-col  w-[1440px] h-auto items-center bg-white dark:bg-black text-black dark:text-white py-10 px-45 gap-8">
+    <div className="flex max-sm:flex-col w-full h-auto items-center bg-white dark:bg-black text-black dark:text-white sm:py-10 sm:px-45 gap-8">
       <div className="flex flex-col  gap-6">
         <div className="flex justify-between items-center ">
           <div className="flex flex-col gap-1">
-            <p className="text-[36px] font-bold">{movie.title}</p>
+            <p className="sm:text-[36px] text-xl font-bold">{movie.title}</p>
             <p className="text-[18px]">
               {movie.release_date} · {movie.runtime}m
             </p>
@@ -121,9 +121,9 @@ export const MovieDetails = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row gap-10">
+        <div className="flex sm:flex-row flex-col gap-10">
           <img
-            className="w-[300px]  h-[428px]"
+            className="sm:w-[300px] w-[150px] h-[220px] sm:h-[428px]"
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title}
           />
@@ -149,7 +149,7 @@ export const MovieDetails = () => {
             </div>
             {showTrailer && trailerKey && (
               <div
-                className="fixed inset-0 z-[120] bg-blac  k/75 flex items-center justify-center p-4"
+                className="fixed inset-0 z-[120] bg-blac  k/75 flex items-center justify-center max-sm:ml-10 p-4"
                 onClick={() => {
                   setShowTrailer(false);
                   setTrailerKey("");
@@ -182,7 +182,7 @@ export const MovieDetails = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5">
-          <div className="flex gap-2 flex-wrap">
+          <div className="sm:flex gap-2 flex-wrap">
             {movie.genres?.map((genre, index) => (
               <button
                 key={index}
@@ -193,21 +193,21 @@ export const MovieDetails = () => {
             ))}
           </div>
         </div>
-        <p className="w-full ">{movie.overview}</p>
+        <p className="w-full sm:text-xl px-5 text-sm ">{movie.overview}</p>
         <div className=" flex flex-col gap-8">
-          <div className=" text-xl border-b border-[#ddd] py-2 font-bold flex gap-15">
+          <div className=" sm:text-xl text-sm ml-5  border-b border-[#ddd] py-2 font-bold flex gap-15">
             Director{" "}
             <p className="font-normal">
               {directors.length ? directors.join(" · ") : "-"}
             </p>
           </div>
-          <div className="text-xl border-b border-[#ddd] py-2 font-bold flex gap-15">
+          <div className="sm:text-xl text-sm ml-5 border-b border-[#ddd] py-2 font-bold flex gap-15">
             Writers{" "}
             <p className="font-normal px-2">
               {writers.length ? writers.join(" · ") : "-"}
             </p>
           </div>
-          <div className="text-xl border-b border-[#ddd] py-2 font-bold flex gap-15">
+          <div className="sm:text-xl text-sm ml-5  border-b border-[#ddd] py-2 font-bold flex gap-15">
             Stars{" "}
             <p className="font-normal px-6">
               {stars.length ? stars.join(" · ") : "-"}

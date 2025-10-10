@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { HeroSlide } from "../_component/HeroSlide";
 import { ZuunIcon } from "../_icons/ZuunIcon";
 import { IconButton } from "../_icons/IconButton";
-import { Loading } from "../_component/Loading";
+import { HeroSlide } from "../_component/HeroSlide";
 
 const apiLink =
   "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
@@ -36,6 +35,14 @@ export const HeroSection = () => {
   const total = nomPlayingMovieData.length;
   const atStart = currentIndex === 0;
   const atEnd = currentIndex === Math.max(0, total - 1);
+
+  useEffect(() => {
+    if (nomPlayingMovieData.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((goNext) => (goNext + 1) % nomPlayingMovieData.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [nomPlayingMovieData.length]);
 
   const goPrev = () => {
     if (atStart) return;
@@ -82,12 +89,13 @@ export const HeroSection = () => {
   };
 
   if (loading) {
-    return <div className=" w-[1440px] h-[600px] bg-gray-100"></div>;
+    return <div className="w-full   md:h-[600px] h-auto  bg-gray-100" />;
   }
+
   return (
     <div className="relative w-full h-[600px] overflow-hidden">
       <div
-        className="flex h-full transition-transform duration-500 ease-in-out"
+        className="sm:flex h-full transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {nomPlayingMovieData.map((movie) => (
@@ -104,7 +112,7 @@ export const HeroSection = () => {
         ))}
       </div>
       {!atStart && (
-        <div className="absolute inset-y-0 left-0 z-10 flex items-center p-4">
+        <div className="absolute inset-y-0 left-0 z-10 sm:flex hidden items-center p-4">
           <button
             onClick={goPrev}
             className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center cursor-pointer"
@@ -115,7 +123,7 @@ export const HeroSection = () => {
         </div>
       )}
       {!atEnd && (
-        <div className="absolute inset-y-0 right-0 z-10 flex items-center p-4">
+        <div className="absolute inset-y-0 right-0 z-10 sm:flex hidden items-center p-4">
           <button
             onClick={goNext}
             className="h-12 w-12 rounded-full bg-white shadow flex items-center justify-center cursor-pointer"
@@ -126,7 +134,7 @@ export const HeroSection = () => {
         </div>
       )}
       {total > 1 && (
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 mb-[320px] sm:mb-0">
           {Array.from({ length: total }).map((_, i) => {
             const active = i === currentIndex;
             return (
@@ -138,7 +146,7 @@ export const HeroSection = () => {
                 className={[
                   "h-2 rounded-full transition-all",
                   active
-                    ? "w-3 h-3 bg-white/40 shadow"
+                    ? "w-3 h-3 bg-blue-700 shadow"
                     : "w-3 h-3 bg-white hover:bg-white",
                 ].join(" ")}
               />

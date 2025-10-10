@@ -6,13 +6,12 @@ import { Header } from "../_features/Header";
 
 export default function Home() {
   return (
-    <div className="w-[1440px] m-auto">
+    <div className="w-full 2xl:w-[1440px] m-auto">
       <Header />
       <AllMovieList
         title="Popular"
         url="https://api.themoviedb.org/3/movie/popular?language=en-US"
         isShow={true}
-        seeMoreHref="/popular"
       />
       <Footer />
     </div>
