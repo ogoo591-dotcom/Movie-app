@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { MovieCard } from "@/app/_component/MovieCard";
 import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
+import { Loading } from "@/app/_component/Loading";
 
 const options = {
   method: "GET",
@@ -97,7 +98,7 @@ export default function GenrePage() {
   const handlePageClick = (page) => setPage(page);
 
   if (!genreId) return <div className="p-6 text-red-600">Invalid genre id</div>;
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className="p-6 lg:p-8 grid grid-cols-1 sm:lg:grid-cols-[260px_1fr] gap-8 bg-white">
