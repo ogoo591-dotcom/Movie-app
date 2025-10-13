@@ -2,11 +2,11 @@ import { StarIcon } from "../_icons/StarIcon";
 import { WatchIcon } from "../_icons/WatchIcon";
 
 export const HeroSlide = (props) => {
-  const { name, text, rating, imgUrl, onWatchTrailer, mobileStack } = props;
+  const { name, text, rating, imgUrl, onWatchTrailer } = props;
   return (
     <div className="relative w-full h-full max-sm:flex max-sm:flex-col bg-white">
       <img
-        className="sm:absolute inset-0 w-full h-full object-cover"
+        className="sm:absolute inset-0 w-full h-full sm:object-cover object-cover"
         src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
         alt={name}
       />
@@ -15,7 +15,7 @@ export const HeroSlide = (props) => {
           <p className="text-sm sm:text-base opacity-90 mb-2 sm:text-white text-black">
             Now Playing:
           </p>
-          <h1 className="sm:text-4xl text-2xl font-medium sm:text-white text-black">
+          <h1 className="sm:text-4xl text-xl font-medium sm:text-white text-black">
             {name}
           </h1>
           <div className="flex flex-row gap-2">
@@ -26,7 +26,7 @@ export const HeroSlide = (props) => {
             <span className="text-lg font-medium text-gray-400">/10</span>
           </div>
         </div>
-        <p className="text-base sm:text-white text-black sm:text-lg leading-relaxed line-clamp-6 sm:line-clamp-3">
+        <p className="text-base sm:text-white text-black sm:text-lg leading-relaxed line-clamp-3 sm:line-clamp-3">
           {text}
         </p>
         <button

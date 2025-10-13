@@ -15,7 +15,7 @@ const options = {
   },
 };
 export const HeroSection = () => {
-  const [nomPlayingMovieData, setNowPlayingMovieData] = useState([]);
+  const [nowPlayingMovieData, setNowPlayingMovieData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [showTrailer, setShowTrailer] = useState(false);
@@ -32,26 +32,27 @@ export const HeroSection = () => {
     getData();
   }, []);
 
-  const total = nomPlayingMovieData.length;
+  const total = nowPlayingMovieData.length;
   const atStart = currentIndex === 0;
   const atEnd = currentIndex === Math.max(0, total - 1);
 
   useEffect(() => {
-    if (nomPlayingMovieData.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((goNext) => (goNext + 1) % nomPlayingMovieData.length);
+    if (total <= 1) return;
+    const id = setInterval(() => {
+      setCurrentIndex((i) => (i + 1) % total);
     }, 5000);
-    return () => clearInterval(timer);
-  }, [nomPlayingMovieData.length]);
+    return () => clearInterval(id);
+  }, [total]);
 
-  const goPrev = () => {
-    if (atStart) return;
-    setCurrentIndex((i) => Math.max(0, i - 1));
-  };
-  const goNext = () => {
-    if (atEnd) return;
-    setCurrentIndex((i) => Math.min(total - 1, i + 1));
-  };
+  useEffect(() => {
+    if (currentIndex > total - 1) setCurrentIndex(0);
+  }, [total, currentIndex]);
+
+  const goPrev = () => !atStart && setCurrentIndex((i) => Math.max(0, i - 1));
+
+  const goNext = () =>
+    !atEnd && setCurrentIndex((i) => Math.min(total - 1, i + 1));
+  const goTo = (i) => setCurrentIndex(i);
 
   const fetchTrailer = async (movieId, movieTitle) => {
     try {
@@ -93,12 +94,12 @@ export const HeroSection = () => {
   }
 
   return (
-    <div className="relative w-full h-[600px] overflow-hidden">
+    <div className="relative w-full h-[600px] overflow-hidden  bg-white ">
       <div
-        className="sm:flex h-full transition-transform duration-500 ease-in-out"
+        className="sm:flex flex sm:h-full h-[300px] sm:w-full w-[550px] transition-transform duration-500 ease-in-out "
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {nomPlayingMovieData.map((movie) => (
+        {nowPlayingMovieData.map((movie) => (
           <div key={movie.id} className="min-w-full h-full shrink-0">
             <HeroSlide
               name={movie.title}

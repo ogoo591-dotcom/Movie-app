@@ -3,8 +3,9 @@ import "./index.css";
 
 import { Header } from "./_features/Header";
 import { Footer } from "./_features/Footer";
-import { HeroSection } from "./_features/HeroSection";
+
 import { AllMovieList } from "./_features/AllMovieList";
+import { HeroSection } from "./_features/HeroSection";
 
 export default function Home() {
   return (

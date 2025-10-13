@@ -123,17 +123,17 @@ export const MovieDetails = () => {
         </div>
         <div className="flex sm:flex-row flex-col gap-10">
           <img
-            className="sm:w-[300px] w-[150px] h-[220px] sm:h-[428px]"
+            className="sm:w-[300px] w-[150px] h-[220px] sm:h-[428px] hidden sm:block"
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title}
           />
           <div className="relative ">
             <img
-              className="w-[780px]  h-[428px]"
+              className="sm:w-[780px] w-[430px] sm:h-[428px] h-[250px]"
               src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
               alt={movie.title}
             />{" "}
-            <div className=" absolute inset-0 z-20 ml-5 mt-90 flex gap-3">
+            <div className=" absolute inset-0 z-20 ml-5 sm:mt-90 mt-45 flex gap-3">
               <button
                 onClick={() => fetchTrailer(movie.id, movie.title)}
                 className=" h-[45px]  w-[45px] border-0 border-gray-200  border-gr flex cursor-pointer rounded-full justify-center items-center gap-2 bg-white text-sm "
@@ -181,12 +181,12 @@ export const MovieDetails = () => {
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col  gap-5">
           <div className="sm:flex gap-2 flex-wrap">
             {movie.genres?.map((genre, index) => (
               <button
                 key={index}
-                className="h-7  flex items-center gap-5-2 px-4 cursor-pointer text-l font-bold border rounded-full border-[#ddd]"
+                className="h-7  sm:flex items-center gap-5-2 px-4 cursor-pointer text-l font-bold border rounded-full border-[#ddd]"
               >
                 {genre.name}
               </button>
