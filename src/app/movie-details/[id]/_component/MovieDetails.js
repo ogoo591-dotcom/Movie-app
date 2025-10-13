@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DetailsLoading } from "./DetailsLoading";
 import Image from "next/image";
+import { Loading } from "@/app/_component/Loading";
 
 const options = {
   method: "GET",
@@ -37,7 +38,7 @@ export const MovieDetails = () => {
   }, [id]);
 
   if (!id) return <div className="p-6 text-red-600">Invalid movie id</div>;
-  if (loading) return <div className="p-6">Loading…</div>;
+  if (loading) return <Loading />;
   if (!movie) return <div className="p-6">Not found</div>;
 
   const crew = movie?.credits?.crew ?? [];

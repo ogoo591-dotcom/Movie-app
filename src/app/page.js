@@ -3,7 +3,6 @@ import "./index.css";
 
 import { Header } from "./_features/Header";
 import { Footer } from "./_features/Footer";
-
 import { AllMovieList } from "./_features/AllMovieList";
 import { HeroSection } from "./_features/HeroSection";
 
