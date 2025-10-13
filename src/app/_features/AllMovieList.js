@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MovieCard } from "@/app/_component/MovieCard";
 import { ZuunIcon } from "@/app/_icons/ZuunIcon";
 import { IconButton } from "@/app/_icons/IconButton";
@@ -25,22 +25,31 @@ export const AllMovieList = (props) => {
   const [page, setPage] = useState(1);
   const totalPages = 15;
 
-  const getData = async (pageNum) => {
-    setLoading(true);
-    const data = await fetch(buildUrl(url, pageNum), options);
-    const jsonData = await data.json();
-    setAllMovieData(jsonData.results || []);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getData(1);
-  }, [url]);
-
-  useEffect(() => {
+  const getData = useCallback(async () => {
     if (!url) return;
-    getData(page);
+    setLoading(true);
+    const ctrl = new AbortController();
+    try {
+      const res = await fetch(buildUrl(url, page), {
+        ...options,
+        signal: ctrl.signal,
+      });
+      const json = await res.json();
+      setAllMovieData(Array.isArray(json.results) ? json.results : []);
+    } catch (e) {
+      if (e.name !== "AbortError") console.error(e);
+    } finally {
+      setLoading(false);
+    }
+    return () => ctrl.abort();
   }, [url, page]);
+
+  useEffect(() => {
+    const cleanup = getData();
+    return () => {
+      if (typeof cleanup === "function") cleanup();
+    };
+  }, [getData]);
 
   const getPageNumbers = () => {
     const pages = [];

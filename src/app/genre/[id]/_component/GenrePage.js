@@ -127,7 +127,7 @@ export default function GenrePage() {
 
       <section>
         <h1 className="text-lg font-semibold mb-4">
-          {totalResults.toLocaleString()} titles in "{genreName}"
+          {totalResults.toLocaleString()} titles in &ldquo;{genreName}&ldquo;
         </h1>
         <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center">
           {movies.slice(0, 8).map((m) => (

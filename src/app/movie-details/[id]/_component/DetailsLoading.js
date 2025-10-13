@@ -13,9 +13,9 @@ export const DetailsLoading = () => {
           </div>
         </div>
         <div className="flex flex-row gap-10">
-          <img className="w-[300px]  h-[428px]  bg-gray-100" />
+          <div className="w-[300px]  h-[428px]  bg-gray-100" />
           <div className="relative ">
-            <img className="w-[780px]  h-[428px]  bg-gray-100" />{" "}
+            <div className="w-[780px]  h-[428px]  bg-gray-100" />{" "}
             <div className=" absolute inset-0 z-20 ml-5 mt-90 flex gap-3"></div>
           </div>
         </div>

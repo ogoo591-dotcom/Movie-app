@@ -4,6 +4,7 @@ import { WatchIcon } from "@/app/_icons/WatchIcon";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DetailsLoading } from "./DetailsLoading";
+import Image from "next/image";
 
 const options = {
   method: "GET",
