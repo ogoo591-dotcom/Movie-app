@@ -5,7 +5,7 @@ import { PhoneIcon } from "../_icons/PhoneIcon";
 
 export const Footer = () => {
   return (
-    <div className="w-full h-[280px] sm:h-[350px] bg-blue-600 flex justify-center sm:gap-0 items-center">
+    <div className="w-full h-[280px] sm:h-[350px] bg-blue-600 flex justify-center sm:gap-0 items-center ">
       <div className="max-w-[1280px] h-[200px] flex sm:flex-row flex-col gap-5 sm:gap-90 text-white font-normal">
         <div className="cursor-pointer ">
           <MovieZIcon />

@@ -36,8 +36,8 @@ export const AllMovieList = (props) => {
       });
       const json = await res.json();
       setAllMovieData(Array.isArray(json.results) ? json.results : []);
-      setTotalPages(Number(json.total_pages) || 1);
-      console.log(setTotalPages);
+      setTotalPages(Number(json.total_pages || totalPages));
+      console.log(json, "asdasds");
     } catch (e) {
       if (e.name !== "AbortError") console.error(e);
     } finally {
@@ -97,7 +97,7 @@ export const AllMovieList = (props) => {
             </Link>
           )}
         </div>
-        <div className="sm:flex flex  flex-wrap sm:gap-8 gap-6 justify-center ">
+        <div className="sm:flex flex flex-wrap sm:gap-8 gap-6 justify-center min-h-[800px]">
           {AllMovieData.slice(0, !isShow ? 10 : 20).map((movie, index) => {
             return (
               <MovieCard
@@ -133,8 +133,8 @@ export const AllMovieList = (props) => {
                 onClick={() => handlePageClick(p)}
                 className={` ${
                   page === p
-                    ? "w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
-                    : "w-10 h-10  rounded-xl cursor-pointer hover:bg-gray-200"
+                    ? "max-w-30 h-10 min-w-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                    : "max-w-30 h-10  min-w-10  rounded-xl cursor-pointer hover:bg-gray-200"
                 }`}
               >
                 {p}

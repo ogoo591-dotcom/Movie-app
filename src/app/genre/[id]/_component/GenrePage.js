@@ -57,7 +57,7 @@ export default function GenrePage() {
         setMovies(j.results || []);
         console.log("hhhhehhhhehhhhehheeeeee", setMovies);
 
-        setTotalPages(Number(j.total_pages) || 1);
+        setTotalPages(Number(j.total_pages) || totalPages);
         setTotalResults(Number(j.total_results || 0));
       } catch (e) {
         console.error("discover error:", e);
@@ -130,7 +130,7 @@ export default function GenrePage() {
         <h1 className="text-lg font-semibold mb-4">
           {totalResults.toLocaleString()} titles in &ldquo;{genreName}&ldquo;
         </h1>
-        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center">
+        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center min-h-[800px]">
           {movies.slice(0, 8).map((m) => (
             <MovieCard
               key={m.id}
@@ -163,8 +163,8 @@ export default function GenrePage() {
                 onClick={() => handlePageClick(p)}
                 className={` ${
                   page === p
-                    ? "w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
-                    : "w-10 h-10  rounded-xl cursor-pointer hover:bg-gray-200"
+                    ? "max-w-30 h-10 min-w-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                    : "max-w-30 h-10  min-w-10  rounded-xl cursor-pointer hover:bg-gray-200"
                 }`}
               >
                 {p}

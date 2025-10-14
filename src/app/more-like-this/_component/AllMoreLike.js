@@ -34,7 +34,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
     const jsonData = await data.json();
     setMoreLikeData(jsonData.results || []);
     console.log("hahahahahhhhhhhhhh11", setMoreLikeData);
-    setTotalPages(Number(jsonData.total_pages) || 1);
+    setTotalPages(Number(jsonData.total_pages) || totalPages);
     setLoading(false);
   };
 
@@ -88,7 +88,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
             </Link>
           )}
         </div>
-        <div className="flex flex-wrap gap-8 justify-center ">
+        <div className="flex flex-wrap gap-8 justify-center min-h-[800px] ">
           {moreLikeData.map((movie) => {
             return (
               <MovieCard
@@ -124,8 +124,8 @@ export const AllMoreLike = ({ isMoreLike }) => {
               onClick={() => handlePageClick(p)}
               className={` ${
                 page === p
-                  ? "w-10 h-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
-                  : "w-10 h-10  rounded-xl cursor-pointer hover:bg-gray-200"
+                  ? "max-w-30 h-10 min-w-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                  : "max-w-30 h-10  min-w-10  rounded-xl cursor-pointer hover:bg-gray-200"
               }`}
             >
               {p}

@@ -51,7 +51,7 @@ export const MoreLikeThis = () => {
             <SeeMore />
           </Link>
         </div>
-        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-1 sm:justify-center">
+        <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-1 sm:justify-center min-h-[400px]">
           {moreLikeData.slice(0, 5).map((movie) => {
             return (
               <MovieCard

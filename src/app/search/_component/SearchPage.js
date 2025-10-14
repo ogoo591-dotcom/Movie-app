@@ -84,7 +84,7 @@ export default function SearchPage() {
 
         setResults(Array.isArray(json.results) ? json.results : []);
         setTotalResults(Number(json.total_results || 0));
-        setTotalPages(Number(json.total_pages || 1));
+        setTotalPages(Number(json.total_pages || totalPages));
       } catch (e) {
         if (!ctrl.signal.aborted) {
           console.error("search error:", e);
@@ -131,7 +131,7 @@ export default function SearchPage() {
               No results found.
             </div>
           ) : (
-            <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center">
+            <div className="sm:flex-wrap flex flex-wrap sm:gap-8 gap-5 sm:justify-center min-h-[800px]">
               {results.slice(0, 8).map((m) => (
                 <MovieCard
                   key={m.id}
