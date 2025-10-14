@@ -124,7 +124,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
               onClick={() => handlePageClick(p)}
               className={` ${
                 page === p
-                  ? "max-w-30 h-10 min-w-10 flex justify-center items-center border rounded-xl cursor-pointer hover:bg-gray-200"
+                  ? "max-w-30 h-10 min-w-10 flex justify-center items-center border rounded-xl bg-blue-500 cursor-pointer hover:bg-gray-200"
                   : "max-w-30 h-10  min-w-10  rounded-xl cursor-pointer hover:bg-gray-200"
               }`}
             >

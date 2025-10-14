@@ -3,8 +3,6 @@ import { StarIcon } from "@/app/_icons/StarIcon";
 import { WatchIcon } from "@/app/_icons/WatchIcon";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { DetailsLoading } from "./DetailsLoading";
-import Image from "next/image";
 import { Loading } from "@/app/_component/Loading";
 
 const options = {
