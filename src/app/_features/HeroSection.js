@@ -145,7 +145,7 @@ export const HeroSection = () => {
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={active ? "true" : "false"}
                 className={[
-                  "h-2 rounded-full transition-all",
+                  "h-2 rounded-full transition-all cursor-pointer",
                   active
                     ? "w-3 h-3 bg-blue-700 shadow"
                     : "w-3 h-3 bg-white hover:bg-white",

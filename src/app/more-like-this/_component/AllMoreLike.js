@@ -22,7 +22,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
   const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const totalPages = 15;
+  const [totalPages, setTotalPages] = useState([]);
 
   const apiLink = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`;
 
@@ -34,6 +34,7 @@ export const AllMoreLike = ({ isMoreLike }) => {
     const jsonData = await data.json();
     setMoreLikeData(jsonData.results || []);
     console.log("hahahahahhhhhhhhhh11", setMoreLikeData);
+    setTotalPages(Number(jsonData.total_pages) || 1);
     setLoading(false);
   };
 

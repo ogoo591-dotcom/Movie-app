@@ -23,7 +23,7 @@ export const AllMovieList = (props) => {
   const [AllMovieData, setAllMovieData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const totalPages = 15;
+  const [totalPages, setTotalPages] = useState(1);
 
   const getData = useCallback(async () => {
     if (!url) return;
@@ -36,6 +36,8 @@ export const AllMovieList = (props) => {
       });
       const json = await res.json();
       setAllMovieData(Array.isArray(json.results) ? json.results : []);
+      setTotalPages(Number(json.total_pages) || 1);
+      console.log(setTotalPages);
     } catch (e) {
       if (e.name !== "AbortError") console.error(e);
     } finally {
