@@ -5,14 +5,42 @@ import { Logo3Icon } from "../_icons/Logo3";
 import { SettingIcon } from "../_icons/Setting";
 import Link from "next/link";
 import { FoodIcon2 } from "../_icons/FoodMenu2";
-import CategoryCards from "../_component/CategoryCards";
-import { FoodCards } from "../_component/FoodCards";
+import CategoryCards from "../_features/CategoryCards";
+import { useEffect, useState } from "react";
+import { FoodsByCategory } from "../_features/FoodsByCategory";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+  const [categories, setCategories] = useState([]);
+
+  const categoryData = async () => {
+    const data = await fetch("http://localhost:4000/foodCategory");
+    const jsonData = await data.json();
+    setCategories(jsonData);
+  };
+
+  useEffect(() => {
+    categoryData();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (!token) router.push("/login");
+    }
+  }, []);
+
   return (
-    <div className="w-[1440px] h-[1024px] m-auto bg-gray-100 flex flex-wrap  mt-10 gap-3">
-      <div className="h-[1024px] w-[204px] bg-white gap-10 py-9 flex flex-col ">
-        <Logo3Icon />
+    <div className="w-[1440px] h-screen m-auto bg-gray-100 flex mt-10 gap-8 relative">
+      <div className="h-full w-[250px] bg-white gap-10 py-9 flex flex-col px-5 ">
+        <button
+          onClick={() => router.push("/")}
+          aria-label="Go home"
+          className="shrink-0"
+        >
+          <Logo3Icon />
+        </button>
         <Link
           href={"/admin"}
           className="flex justify-center items-center gap-2 h-10 w-40 bg-black text-white rounded-full"
@@ -35,20 +63,16 @@ export default function Home() {
           <p>Settings</p>
         </Link>
       </div>
-      <div className="w-[1171px] h-[948px] mt-10 bg-white">
-        <img className="w-9 h-9 rounded-full ml-280" src="./User.jpg" />
-        <div>
-          <CategoryCards />
-          <div className="w-[1264px] text-white ml-22">
-            <h3 className="text-2xl mt-6 font-semibold py-10 text-black">
-              Appetizers (6)
-            </h3>
-            <div className="w-full h-[720px] gap-8 flex flex-wrap ">
-              <FoodCards />
-              <FoodCards />
-            </div>
-          </div>
-        </div>
+      <div className="w-[1170px] h-auto flex flex-col gap-5  overflow-auto">
+        <img className="w-9 h-9 rounded-full ml-280 mt-5" src="./User.jpg" />
+        <CategoryCards categories={categories} />
+        {categories.map((category) => (
+          <FoodsByCategory
+            key={category._id}
+            categoryId={category._id}
+            categoryName={category.categoryName}
+          />
+        ))}
       </div>
     </div>
   );
