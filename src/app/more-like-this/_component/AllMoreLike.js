@@ -22,25 +22,23 @@ export const AllMoreLike = ({ isMoreLike }) => {
   const [moreLikeData, setMoreLikeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState([]);
-
-  const apiLink = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`;
-
-  console.log(moreLikeData);
-
-  const getData = async (pageNum) => {
-    setLoading(true);
-    const data = await fetch(apiLink + pageNum, options);
-    const jsonData = await data.json();
-    setMoreLikeData(jsonData.results || []);
-    console.log("hahahahahhhhhhhhhh11", setMoreLikeData);
-    setTotalPages(Number(jsonData.total_pages) || 1);
-    setLoading(false);
-  };
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    getData(page);
-  }, [page]);
+    if (!id) return;
+    const getData = async () => {
+      setLoading(true);
+      const data = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`,
+        options
+      );
+      const jsonData = await data.json();
+      setMoreLikeData(jsonData.results || []);
+      setTotalPages(Number(jsonData.total_pages) || 1);
+      setLoading(false);
+    };
+    getData();
+  }, [id, page]);
 
   const getPageNumbers = () => {
     const pages = [];

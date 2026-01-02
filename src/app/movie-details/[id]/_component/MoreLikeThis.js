@@ -20,19 +20,20 @@ export const MoreLikeThis = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
-  const apiLink = `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`;
-
-  const getData = async () => {
-    setLoading(true);
-    const data = await fetch(apiLink, options);
-    const jsonData = await data.json();
-    setMoreLikeData(jsonData.results);
-    setLoading(false);
-  };
-
   useEffect(() => {
+    if (!id) return;
+    const getData = async () => {
+      setLoading(true);
+      const data = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`,
+        options
+      );
+      const jsonData = await data.json();
+      setMoreLikeData(jsonData.results || []);
+      setLoading(false);
+    };
     getData();
-  }, [page]);
+  }, [id, page]);
 
   if (loading) {
     return <Loading />;

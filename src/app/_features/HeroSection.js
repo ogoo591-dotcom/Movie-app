@@ -44,10 +44,6 @@ export const HeroSection = () => {
     return () => clearInterval(id);
   }, [total]);
 
-  useEffect(() => {
-    if (currentIndex > total - 1) setCurrentIndex(0);
-  }, [total, currentIndex]);
-
   const goPrev = () => !atStart && setCurrentIndex((i) => Math.max(0, i - 1));
 
   const goNext = () =>

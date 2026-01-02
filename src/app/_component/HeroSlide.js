@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { StarIcon } from "../_icons/StarIcon";
 import { WatchIcon } from "../_icons/WatchIcon";
 
@@ -5,10 +6,13 @@ export const HeroSlide = (props) => {
   const { name, text, rating, imgUrl, onWatchTrailer } = props;
   return (
     <div className="relative w-full h-full max-sm:flex max-sm:flex-col bg-white">
-      <img
+      <Image
         className="sm:absolute inset-0 w-full h-full sm:object-cover object-cover"
         src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
         alt={name}
+        fill
+        priority
+        sizes="100vw"
       />
       <div className="sm:absolute inset-0 w-[400px] z-20 flex flex-col gap-4 max-sm:p-5 justify-center sm:ml-40">
         <div>

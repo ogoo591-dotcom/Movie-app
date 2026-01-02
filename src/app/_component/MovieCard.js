@@ -1,5 +1,6 @@
 `use client`;
 
+import Image from "next/image";
 import { StarIcon } from "../_icons/StarIcon";
 import { useRouter } from "next/navigation";
 
@@ -16,11 +17,16 @@ export const MovieCard = (props) => {
       onClick={handleMovieClick}
     >
       <div className="w-full h-full h- overflow-hidden cursor-pointer ">
-        <img
-          className="sm:w-full w-[180px] sm:h-[344px] h-[250px] object-cover  "
-          src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
-          alt={name}
-        />
+        <div className="relative sm:w-full w-[180px] sm:h-[344px] h-[250px]">
+          <Image
+            className="object-cover"
+            src={`https://image.tmdb.org/t/p/original/${imgUrl}`}
+            alt={name}
+            fill
+            sizes="(max-width: 640px) 180px, 230px"
+            priority={false}
+          />
+        </div>
         <div className=" sm:w-full w-[180px] h-[95px] flex flex-col gap-3 bg-gray-100 dark:bg-gray-500">
           <div className="flex ml-3 flex-row gap-2">
             <StarIcon />

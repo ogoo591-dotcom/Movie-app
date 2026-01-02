@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { StarIcon } from "../_icons/StarIcon";
@@ -22,12 +23,16 @@ export const SearchButton = (props) => {
       className="w-full items-center gap-3 px-3 py-2 hover:bg-gray-100 text-left flex border-b border-gray-100 cursor-pointer shrink-0"
     >
       {imgUrl ? (
-        <img
-          className="w-[79px] h-[100px] rounded object-cover"
-          src={`https://image.tmdb.org/t/p/w92/${imgUrl}`}
-          alt={name}
-          loading="lazy"
-        />
+        <div className="relative w-[79px] h-[100px] overflow-hidden rounded">
+          <Image
+            className="object-cover"
+            src={`https://image.tmdb.org/t/p/w92/${imgUrl}`}
+            alt={name}
+            fill
+            sizes="79px"
+            loading="lazy"
+          />
+        </div>
       ) : (
         <div className="w-[44px] h-[66px] rounded bg-gray-200" />
       )}

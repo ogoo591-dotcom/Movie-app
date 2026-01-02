@@ -124,17 +124,27 @@ export const MovieDetails = () => {
           </div>
         </div>
         <div className="flex sm:flex-row flex-col gap-10">
-          <img
-            className="sm:w-[300px] w-[150px] h-[220px] sm:h-[428px] hidden sm:block"
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <div className="relative ">
-            <img
-              className="sm:w-[780px] w-[430px] sm:h-[428px] h-[250px]"
-              src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+          <div className="relative sm:w-[300px] w-[150px] h-[220px] sm:h-[428px] hidden sm:block">
+            <Image
+              className="object-cover"
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={movie.title}
-            />{" "}
+              fill
+              sizes="(max-width: 640px) 150px, 300px"
+              priority
+            />
+          </div>
+          <div className="relative ">
+            <div className="relative sm:w-[780px] w-[430px] sm:h-[428px] h-[250px]">
+              <Image
+                className="object-cover"
+                src={`https://image.tmdb.org/t/p/w780/${movie.backdrop_path}`}
+                alt={movie.title}
+                fill
+                priority
+                sizes="(max-width: 640px) 430px, 780px"
+              />
+            </div>
             <div className=" absolute inset-0 z-20 ml-5 sm:mt-90 mt-45 flex gap-3">
               <button
                 onClick={() => fetchTrailer(movie.id, movie.title)}
